@@ -75,3 +75,8 @@
     background: #f1f7ff;
 }
 </style>
+
+
+<?php
+$problemi =  'contattare l\'<a href="mailto:assterritorio@amiu.genova.it">amministratore di sistema</a>';
+?>
