@@ -1,59 +1,6 @@
 <?php
 
-$id=pg_escape_string($_GET['id']);
-
-if (isset($_POST)){
-
-    if ($_POST['submit']) {
-         //Save File
-
-         echo "<script>
-         $(window).load(function(){
-             $('#thankyouModal').modal('show');
-         });
-    </script>";
-
-        ?>
-
-
-         <div class="modal" id="thankyouModal" tabindex="-1" role="dialog">
-         <div class="modal-dialog" role="document">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title">Modal title</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
-             <div class="modal-body">
-               <p>
-                   
-               <?php
-               echo "Grazie, riceverai i dati richiesti alla mail ". $_POST['mail'] . " ento pochi minuti. 
-               In caso di problemi ti invitiamo a contattare il gruppo GETE via mail (assterritorio@amiu.genova.it) 
-               o telefonicamente al 010 55 84496 ";
-               ?>
-            
-            </p>
-             </div>
-             <div class="modal-footer">
-               <button type="button" class="btn btn-primary">Save changes</button>
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             </div>
-           </div>
-         </div>
-       </div>
-
-       <?php
-
-
-         $file = fopen('./file/elenco_vie.txt',"w+");
-         $text = $_POST["lista_vie"];
-         fwrite($file, $text);
-         fclose($file);
-     }
- 
- }
+//$id=pg_escape_string($_GET['id']);
 
 ?>
 
@@ -83,20 +30,30 @@ require_once('./conn.php');
       <div class="container">
       
 
-            <h2> Seleziona vie da cui recuperare le utenze </h2>
+            <h2> Seleziona vie da cui recuperare le utenze <i class="fas fa-users"></i> </h2>
             <hr>
-            <form name="openfile" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>" >
+            <!--form name="openfile" method="post" autocomplete="off" action="<?php echo $_SERVER['PHP_SELF'] ?>" -->
+            <form name="openfile" method="post" autocomplete="off" action="output.php" >
+
             <div class="row">
                 
             
             <div class="col-md-6"> 
             <div class="form-group">
-                <label for="mail">Email address</label>
-                <input type="email" class="form-control" id="mail" name= mail  aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="mail">Email address</label><font color="red">*</font>
+                <input type="email" class="form-control" id="mail" name= mail  aria-describedby="emailHelp" placeholder="Enter email" required>
             <small class="form-text text-muted">Specificare l'indirizzo e-mail a cui ricevere i risultati.</small>
             </div>
             </div>
 
+
+            <div class="col-md-6"> 
+            <div class="form-group">
+                <label for="mail">Prefisso file utenze (zona)</label><font color="red">*</font>
+                <input type="text" class="form-control" id="zona" name= zona  aria-describedby="emailHelp" placeholder="Inserisci il prefisso " required>
+            <small class="form-text text-muted">Prefisso da usare per i file excel che avranno un formato di questo tipo YYYYMMGG_<b>prefisso</b>_<i>nomefile</i>.xlsx</small>
+            </div>
+            </div>
             <div class="col-md-6"> 
                 <div class="form-group  ">
                 
@@ -135,15 +92,53 @@ require_once('./conn.php');
             <div class="form-group  ">
 
             <textarea readonly id="lista_vie" name="lista_vie" rows="4"  class="form-control" >cod_via, nome_via</textarea>
+            <small class="form-text text-muted">Anteprima del file con l'elenco vie usato dall'applicativo per generare i file con le utenze. 
+                In caso di errori con le vie clicca sul bottone per rimuovere l'ultima linea.<br>
+                <a href="#" class="btn btn-danger btn-sm" id="removeline"><i class="far fa-trash-alt"></i></a>
+                <br> o riparti dall'inizio<br>
+                <a href="#" class="btn btn-info btn-sm" id="aggiorna"><i class="fas fa-redo"></i></a></small>
             </div>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $('#removeline').click(function() {
+                        // pulisco tutto
+                        //$('#lista_vie').val('cod_via, nome_via');
+                        // solo ultima riga
+                        var txt = $('#lista_vie');
+                        var text = txt.val().trim("\n");
+                        var valuelist = text.split("\n");
+                        //var string_to_replace = "";
+                        //valuelist[valuelist.length-1] = string_to_replace;
+                        console.log(valuelist);
+                        console.log(valuelist.length);
+                        var last = valuelist[valuelist.length - 1];
+                        console.log(last);
+                        pippo=text.replace(last, "").replace(/\n$/, "")
+                        console.log(pippo)
+                        txt.val(pippo)
+                        //pippo=valuelist.pop()
+                        //console.log(pippo)
+                        //last.removeChild(last);
+                        //console.log(valuelist);
+                        //txt.val(pippo.join("\n"));
+                    })
+                });
+                $(document).ready(function() {
+                    $('#aggiorna').click(function() {
+                        // pulisco tutto
+                        $('#lista_vie').val('cod_via, nome_via');
+                    })
+                });
+
+            </script>
 
             
             </div>
             <div class="row">
 
             <div class="form-group  ">
-            <input type="submit" name="submit" class="btn btn-info" value="Recupera utenze">
+            <input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera utenze">
             </div>
             </form>
 
@@ -162,6 +157,18 @@ require('./footer.php');
 
 // con questa parte scritta in JQuery si evita che 
 // l'uso del tasto enter abbia effetto sul submit del form
+
+
+$("input#zona").on({
+  keydown: function(e) {
+    if (e.which === 32)
+      return false;
+  },
+  change: function() {
+    this.value = this.value.replace(/\s/g, "");
+  }
+});
+
 
 $(document).on("keydown", ":input:not(textarea)", function(event) {
     if (event.key == "Enter") {
