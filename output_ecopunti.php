@@ -45,8 +45,8 @@ if ($_POST['submit']) {
     #fclose($file);
 
     $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/ecopunti_parte2.py  -m '.$mail.' > /dev/null 2>&1 &';
-    #echo $comando;
-    #echo '<br><br>';
+    echo $comando;
+    echo '<br><br>';
     exec($comando, $output, $retval);
     foreach($output as $key => $value)
     {
@@ -62,7 +62,7 @@ if ($_POST['submit']) {
             echo "<h3>Grazie, entro alcuni minuti riceverai i dati richiesti alla mail <font color=\"blue\"> ". $mail . "</font> che hai indicato sul form. 
             In caso di problemi ti invitiamo a contattare il gruppo GETE via mail (assterritorio@amiu.genova.it) 
             o telefonicamente al 010 55 84496 / 84728</h3>
-            <a href=\"index.php\" class=\"btn btn-info\">Torna alla pagina principale</a>
+            <a href=\"index_ecopunti.php\" class=\"btn btn-info\">Torna alla pagina principale</a>
             ";
             
    

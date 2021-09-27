@@ -33,7 +33,7 @@ require_once('./conn.php');
             <h2> Utenze ecopunti <i class="fas fa-users"></i> </h2>
             <hr>
             <h4> Il presente form va lanciato dopo aver inserito tutte le utenze degli ecopunti dentro la tabella base_ecopunti dello schema alberghi.
-              <font color="red">  L'eventuale utilizzo senza aver precedentemente popolato tale tabella produrrà 
+              <font color="red">  NOTA BENE: L'eventuale utilizzo di tale pagina senza aver precedentemente popolato tale tabella produrrà 
                   risoltati assolutamente privi di significato. </font>
             </h4>
             <!--form name="openfile" method="post" autocomplete="off" action="<?php echo $_SERVER['PHP_SELF'] ?>" -->
