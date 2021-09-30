@@ -45,8 +45,8 @@ if ($_POST['submit']) {
     #fclose($file);
 
     $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/ecopunti_parte2.py  -m '.$mail.' > /dev/null 2>&1 &';
-    echo $comando;
-    echo '<br><br>';
+    #echo $comando;
+    #echo '<br><br>';
     exec($comando, $output, $retval);
     foreach($output as $key => $value)
     {
