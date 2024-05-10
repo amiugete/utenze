@@ -34,25 +34,45 @@ if (isset($_POST)){
 if ($_POST['submit']) {
      //Save File        
 
-
+    //echo "sono qua<br>";
     $mail = $_POST['mail'];
+    
     $zona = $_POST['zona'];
+    //echo $zona.'<br>';
 
+    
+    $consegne=$_POST['consegne'];
+    if ($consegne=='cons'){
+      $cons=1; 
+    } else {
+      $cons=0;
+    }
+    
+    //echo $consegne;
+    //echo $cons;
+    //echo "<br>sono qua 2<br>";
+    //exit;
 
     $file = fopen('./file/elenco_vie.txt',"w+");
     $text = $_POST["lista_vie"];
     fwrite($file, $text);
     fclose($file);
 
-    $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/seleziona_utenze_vie.py -i /var/www/html/utenze/file/elenco_vie.txt -m '.$mail.'  -p '. $zona.' > /dev/null 2>&1 &';
-    #echo $comando;
-    #echo '<br><br>';
+    $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/seleziona_utenze_vie.py -i /var/www/html/utenze/file/elenco_vie.txt -m '.$mail.'  -p '. $zona.'  -c '. $cons.'  /dev/null 2>&1 &';
+    //echo $comando;
+    //echo '<br><br>';
+    $output=null;
+    $retval=null;
+    
     exec($comando, $output, $retval);
     foreach($output as $key => $value)
     {
       echo $key." ".$value."<br>";
     }
-
+    //echo 'RET= '. $retval .'<br>';
+    //echo "Returned with status $retval and output:\n";
+    //print_r($output);
+    #exit();
     if ($retval == 0) {
         //echo 'OK<br>';
       

@@ -67,7 +67,7 @@ if ($retval == 0) {
 
  
 } else {
-    echo "Codice errore $retval <br>Verificare che il percorso sia presente su SIT. <br>Se il problema sussiste contattare $problemi <br><br><br>";
+    echo "Codice errore $retval <br>Verificare che il percorso con id $id sia presente su SIT. <br>Se il problema sussiste contattare $problemi <br><br><br>";
 } 
 ?>
            

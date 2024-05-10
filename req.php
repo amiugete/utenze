@@ -21,10 +21,16 @@
 <link href="./vendor/bootstrap-4.6.0-dist/css/bootstrap.css" rel="stylesheet">
 
 <!-- Bootstrap Plugins -->
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
-
+<!--link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"-->
+<link rel="stylesheet" href="./vendor/bootstrap-table/dist/bootstrap-table.min.css">
 
 <link href="./vendor/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+<link href="./vendor/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet">
+<link href="./vendor/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+<link href="./main.css" rel="stylesheet">
 
 <!--link href="./bootstrap-table-1.18.3/dist/bootstrap-table.css" rel="stylesheet"-->
 
@@ -32,7 +38,8 @@
 
 
 <!--script src="./jquery.js"></script-->
-
+<!-- jQuery -->
+<script src="./vendor/jquery/jquery-3.6.0.min.js"></script>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>

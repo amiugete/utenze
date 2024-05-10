@@ -57,7 +57,7 @@ if ($_POST['submit']) {
     # la popolo con i dati dei civici neri
     $query1="insert into etl.base_ecopunti 
 (id, geom, cod_strada, numero, lettera, colore, testo, cod_civico, ins_date, mod_date)
-select n.* from geo.civici_neri n, etl.aree_ecopunti a 
+select n.* from geo.civici_neri n, etl.aree a 
 where a.id=$1 and st_intersects(n.geoloc, a.geom);";
     $result1 = pg_prepare($conn, "my_query1", $query1);
     $result1 = pg_execute($conn, "my_query1", array($eco,));
@@ -65,7 +65,7 @@ where a.id=$1 and st_intersects(n.geoloc, a.geom);";
     # la popolo con i dati dei civici rossi
     $query2="insert into etl.base_ecopunti 
 (id, geom, cod_strada, numero, lettera, colore, testo, cod_civico, ins_date, mod_date)
-select n.* from geo.civici_rossi n, etl.aree_ecopunti a 
+select n.* from geo.civici_rossi n, etl.aree a 
 where a.id=$1 and st_intersects(n.geoloc, a.geom);";
     $result2 = pg_prepare($conn, "my_query2", $query2);
     $result2 = pg_execute($conn, "my_query2", array($eco,));
@@ -75,17 +75,11 @@ where a.id=$1 and st_intersects(n.geoloc, a.geom);";
     #fwrite($file, $text);
     #fclose($file);
 
-    $query3="insert into etl.ecopunti
-    (cod_strada,numero,lettera,colore,testo,cod_civico)
-    select cast (cod_strada as numeric),cast (numero as numeric),lettera,cast(colore as numeric),
-    testo,cod_civico from etl.base_ecopunti
-    where cod_civico not in (select cod_civico from etl.ecopunti)";
-    $result3 = pg_prepare($conn, "my_query3", $query3);
-    $result3 = pg_execute($conn, "my_query3");
+    
 
 
 
-    $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/ecopunti_parte2.py  -m '.$mail.' -a '.$eco.' -e true > /dev/null 2>&1 &';
+    $comando='/usr/bin/python3 /home/procedure/script_sit_amiu/ecopunti_parte2.py  -m '.$mail.' -a '.$eco.' -e false > /dev/null 2>&1 &';
     #echo $comando;
     #echo '<br><br>';
     exec($comando, $output, $retval);
@@ -103,7 +97,7 @@ where a.id=$1 and st_intersects(n.geoloc, a.geom);";
             echo "<h3>Grazie, entro alcuni minuti riceverai i dati richiesti alla mail <font color=\"blue\"> ". $mail . "</font> che hai indicato sul form. 
             In caso di problemi ti invitiamo a contattare il gruppo GETE via mail (assterritorio@amiu.genova.it) 
             o telefonicamente al 010 55 84496 / 84728</h3>
-            <a href=\"index_ecopunti.php\" class=\"btn btn-info\">Torna alla pagina principale</a>
+            <a href=\"index_aree.php\" class=\"btn btn-info\">Torna alla pagina principale</a>
             ";
             
    

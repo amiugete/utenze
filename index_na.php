@@ -25,21 +25,15 @@ require_once('./conn.php');
 </head>
 
 <body>
-<div class="banner"> <div id="banner-image"></div> </div>
 
+<div class="banner"> <div id="banner-image"></div> </div>
       <div class="container">
       
 
-            <h3> Elenco pagine </h3>
+            <h2> <i class="fa-solid fa-person-digging"></i> Sito momentaneamente non disponibile <i class="fa-solid fa-person-digging"></i></h2>
 
-            <ul>
-                <li> Estrazione utenze per via  <a href="index_vie.php"> Vai </a></li>
-                <li> Estrazione utenze per area </li>
-                <li> Estrazione utenze ecopunti <a href="index_ecopunti.php"> Vai </a></li>
-            </ul>
+            
 
-
-</div>
 
 
 </div>
